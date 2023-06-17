@@ -38,27 +38,27 @@ class ventana(Gtk.Window):
     
         # Imágenes
 
-        img0 = Gtk.Image.new_from_file("img\default.png")
-        img1 = Gtk.Image.new_from_file("img\default.png")
-        img2 = Gtk.Image.new_from_file("img\default.png")
-        img3 = Gtk.Image.new_from_file("img\default.png")
-        img4 = Gtk.Image.new_from_file("img\default.png")
-        img5 = Gtk.Image.new_from_file("img\default.png")
-        img6 = Gtk.Image.new_from_file("img\default.png")
-        img7 = Gtk.Image.new_from_file("img\default.png")
-        img8 = Gtk.Image.new_from_file("img\default.png")
-        img9 = Gtk.Image.new_from_file("img\default.png")
-        img10 = Gtk.Image.new_from_file("img\default.png")
-        img11 = Gtk.Image.new_from_file("img\default.png")
-        img12 = Gtk.Image.new_from_file("img\default.png")
-        img13 = Gtk.Image.new_from_file("img\default.png")
-        img14 = Gtk.Image.new_from_file("img\default.png")
-        img15 = Gtk.Image.new_from_file("img\default.png")
+        img0 = Gtk.Image.new_from_file("img/default.png")
+        img1 = Gtk.Image.new_from_file("img/default.png")
+        img2 = Gtk.Image.new_from_file("img/default.png")
+        img3 = Gtk.Image.new_from_file("img/default.png")
+        img4 = Gtk.Image.new_from_file("img/default.png")
+        img5 = Gtk.Image.new_from_file("img/default.png")
+        img6 = Gtk.Image.new_from_file("img/default.png")
+        img7 = Gtk.Image.new_from_file("img/default.png")
+        img8 = Gtk.Image.new_from_file("img/default.png")
+        img9 = Gtk.Image.new_from_file("img/default.png")
+        img10 = Gtk.Image.new_from_file("img/default.png")
+        img11 = Gtk.Image.new_from_file("img/default.png")
+        img12 = Gtk.Image.new_from_file("img/default.png")
+        img13 = Gtk.Image.new_from_file("img/default.png")
+        img14 = Gtk.Image.new_from_file("img/default.png")
+        img15 = Gtk.Image.new_from_file("img/default.png")
 
-        lista_pares = ["img\img1.png", "img\img1.png", "img\img2.png", "img\img2.png", 
-                       "img\img3.png", "img\img3.png", "img\img4.png", "img\img4.png", 
-                       "img\img5.png", "img\img5.png", "img\img6.png", "img\img6.png", 
-                       "img\img7.png", "img\img7.png", "img\img8.png", "img\img8.png"]
+        lista_pares = ["img/img1.png", "img/img1.png", "img/img2.png", "img/img2.png", 
+                       "img/img3.png", "img/img3.png", "img/img4.png", "img/img4.png", 
+                       "img/img5.png", "img/img5.png", "img/img6.png", "img/img6.png", 
+                       "img/img7.png", "img/img7.png", "img/img8.png", "img/img8.png"]
         random.shuffle(lista_pares)
 
         # Lista Botones, la lista incia vacía porque por alguna razón me da problemas luego al querer acceder a ella
@@ -223,11 +223,11 @@ class ventana(Gtk.Window):
     def ocultaimagen(self, lista_botones, lista_pos, lista_respuesta):
         # Obtenemos el Widget de imagen correspondiente al boton de acuerdo a lista_pos, cambiamos la imagen a la predeterminada y permitimos la interacción con el botón
         imgboton1 = lista_botones[lista_pos[0]].get_image()
-        imgboton1.set_from_file("img\default.png")
+        imgboton1.set_from_file("img/default.png")
         lista_botones[lista_pos[0]].set_sensitive(True)
         
         imgboton2 = lista_botones[lista_pos[1]].get_image()
-        imgboton2.set_from_file("img\default.png")
+        imgboton2.set_from_file("img/default.png")
         lista_botones[lista_pos[1]].set_sensitive(True)
 
         # Se limpian los valores de la lista de posiciones y de respuesta para poder seguir ingresando el resto de números
