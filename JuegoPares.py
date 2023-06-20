@@ -1,16 +1,38 @@
+'''
+Nombre: Emanuel Leal Arce
+Codigo: 2323555
+Correo: emanuel.leal@correounivalle.edu.co
+
+Nombre: Gian Manuel Pineda
+Codigo: 2324151
+Correo: gian.pineda@correounivalle.edu.co
+
+Nombre: Sebastian Riascos
+Codigo: 2371774
+Correo: Daniel.sebastian.riascos@correounivalle.edu.co
+
+'''
+
+'''
+Analisis del problema:
+
+    Descripción Funcionalidad: Estamos haciendo una interfaz grafica donde
+    se hace un juego de parejas donde se tienen que clickear ambas imagenes para
+    completarlas todas
+'''
+
+
 import gi
 import random
-
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk, GLib
 
-timeout = 500
-intentos = 0
-intentosfallidos = 0
-respcorrecta = 0
-
 class ventana(Gtk.Window):
+    timeout = 500
+    intentos = 0
+    intentosfallidos = 0
+    respcorrecta = 0
     def __init__(self):
         super().__init__(title="Juego de Parejas")
         self.set_default_size(600, 600)
@@ -19,6 +41,11 @@ class ventana(Gtk.Window):
         # Caja Vertical
         vbox = Gtk.VBox(spacing=2, homogeneous = True)
         self.add(vbox)
+
+
+        lbl_presentacion = Gtk.Label()
+        lbl_presentacion.set_text('Emanuel Leal Arce\n Sebastian Riascos \n Gian Manuel Pineda')
+        vbox.pack_start(lbl_presentacion, True, True, 0)
 
         # Hileras de Cajas Horizontales Agregadas
         hbox1 = Gtk.Box(spacing=2, homogeneous = True)
@@ -74,6 +101,10 @@ class ventana(Gtk.Window):
 
         label_gana = Gtk.Label.new("")
         vbox.pack_start(label_gana, True, True, 0)
+
+        # Cabecero
+
+        
 
         # Botones agregados en grupos de 4 a una caja horizontal
 
@@ -176,11 +207,6 @@ class ventana(Gtk.Window):
         # Funciones
 
     def on_button_clicked(self, boton, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana):
-        # Declaraciones de Variables Globales
-        global intentos
-        global intentosfallidos
-        global respcorrecta
-
         # Inicio de Proceso
 
         # Para evitar que se pueda presionar más de 2 botones.
@@ -200,25 +226,25 @@ class ventana(Gtk.Window):
 
             # Cuando se presionan dos botones la lista de respuesta es igual a 2, se procede a comparar los dos valores contenidos en lista_respuesta
             if len(lista_respuesta) == 2:
-                intentos += 1
+                self.intentos += 1
                 if lista_respuesta[0] == lista_respuesta[1]:
-                    respcorrecta += 1
+                    self.respcorrecta += 1
                     # Se limpian los valores de la lista de posiciones y de respuesta para poder seguir ingresando el resto de números
                     lista_respuesta.clear()
                     lista_pos.clear()
                 else:
-                    intentosfallidos += 1
+                    self.intentosfallidos += 1
                     # Método para que se complete la función del botón y después de un tiempo determinado se aplique la función de ocultar las imágenes
-                    GLib.timeout_add(timeout, self.ocultaimagen, lista_botones, lista_pos, lista_respuesta)
+                    GLib.timeout_add(self.timeout, self.ocultaimagen, lista_botones, lista_pos, lista_respuesta)
 
             # Teniendo en cuenta que hay 8 pares, cuando respcorrecta sea 8 se le da contenido al label final
-            if respcorrecta == 8:
-                txt_intentosfall = "Su número total de intentos fallidos fue: " + str(intentosfallidos) + "."
-                txt_intentos = "Su número total de intentos fue: " + str(intentos) + "."
+            if self.respcorrecta == 8:
+                txt_intentosfall = "Su número total de intentos fallidos fue: " + str(self.intentosfallidos) + "."
+                txt_intentos = "Su número total de intentos fue: " + str(self.intentos) + "."
                 label_gana.set_text("¡Felicitaciones, ha encontrado todos los pares!" + "\n" + txt_intentosfall + "\n" + txt_intentos + "\n")
 
         # Fin del Proceso
-                
+ 
 
     def ocultaimagen(self, lista_botones, lista_pos, lista_respuesta):
         # Obtenemos el Widget de imagen correspondiente al boton de acuerdo a lista_pos, cambiamos la imagen a la predeterminada y permitimos la interacción con el botón
