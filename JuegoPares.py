@@ -11,16 +11,256 @@ Nombre: Sebastian Riascos
 Codigo: 2371774
 Correo: Daniel.sebastian.riascos@correounivalle.edu.co
 
+Paso 1: Analisis del problema:
+
+Descripción: Desarrolle un programa en Python para el juego de parejas. 
+El programa tiene un tablero de 4x4 para encontrar las parejas de imágenes.
+Por defecto se debe cargar una imagen de base para que el usuario pueda ir descubriendo las parejas de imágenes. 
+Cree una función que permita cargar la imagen de base cuando se inicie el programa. 
+Las imágenes ocultas deben cargarse en forma aleatoria cada vez que se inicie el juego.
+Escriba una función que permita ir descubriendo las imágenes. Cuando el usuario encuentre una pareja de imágenes, el sistema debe desactivarlas. En caso contrario, el programa debe volver a ocultar las imágenes cargando la imagen de base
+Cuando el jugador encuentre todas las parejas se debe imprimir un mensaje donde se indique que el jugador ganó. Esto se debe mostrar en un label al final del tablero. Adicionalmente, debe imprimir el número de intentos fallidos y el número total de intentos.
+
+
+Clases: ventana
+Funciones: __init__(), on_button_clicked(), ocultaimagen()
+Variables: timeout, intentos, intentosfallidos, respcorrecta, vbox, hbox1-hbox4, img0-img15, b0-b15, lista_pares, lista_botones, lista_respuesta, lista_pos, label_gana
+Entradas: b0-b15, lista_respuesta
+Procesos: if len(lista_respuesta) < 2, if len(lista_respuesta) == 2, if respcorrecta == 8
+Salidas: ¡Felicitaciones, ha encontrado todos los pares!, Su número total de intentos fallidos fue: n, Su número total de intentos fue: n
+
+Paso 2: Pseudocódigo
+
+Inicio
+
+importar random
+gi requiere Gtk en version 3.0
+
+desde el repository de gi importar Gtk, GLib
+
+clase Ventana hereda de Window de Gtk
+	timeout = 500
+	intentos = 0
+	intentosfallados = 0
+	respcorrecto = 0
+	
+	constructor() entonces
+		constructor de clase heredada con titulo=’Juego de Parejas’
+		tamaño de ventana(600 de ancho, 600 de alto)
+		ancho de borde(10)
+		
+		vbox = Vertical Box de Gtk(spaciado=2, homogeneo = Verdadero)
+		ejecutar funcion add(vbox)
+
+		hbox1 = Horizontal Box de Gtk(spaciado = 2, homogeneo = Verdadero)
+		añadir a vbox(hbox1)
+		
+		hbox2 = Horizontal Box de Gtk(spaciado = 2, homogeneo = Verdadero)
+		añadir a vbox(hbox2)
+ 		hbox3 = Horizontal Box de Gtk(spaciado = 2, homogeneo = Verdadero)
+		añadir a vbox(hbox3)
+	
+		hbox4 = Horizontal Box de Gtk(spaciado = 2, homogeneo = Verdadero)
+		añadir a vbox(hbox4)
+
+		img0 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img1 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img2 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img3 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img4 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img5 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img6 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img7 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img8 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img9 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img10 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img11 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img12 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img13 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img14 = Imagen de Gtk desde archivo(‘img/default.png’)
+		img15 = Imagen de Gtk desde archivo(‘img/default.png’)
+
+
+		lista_pares = ["img/img1.png", "img/img1.png", "img/img2.png", 						"img/img2.png", 
+			"img/img3.png", "img/img3.png", "img/img4.png", "img/img4.png", 
+			"img/img5.png", "img/img5.png", "img/img6.png", "img/img6.png", 
+			"img/img7.png", "img/img7.png", "img/img8.png", "img/img8.png"]
+
+		randomizar lista_pares
+
+		lista_botones = []
+		lista_respuesta = []
+		lista_pos = []
+		
+		label_gana = Label de Gtk con texto ‘’
+		añadir a vbox(label_gana)
+
+		b0 = Button nuevo de Gtk
+		ajustar b0 con imagen img0
+		añadir a lista_botones(b0)
+		b0.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox1(b0)
+
+		b1 = Button nuevo de Gtk
+		ajustar b1 con imagen img1
+		añadir a lista_botones(b1)
+		b1.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox1(b1)
+
+		b2 = Button nuevo de Gtk
+		ajustar b2 con imagen img2
+		añadir a lista_botones(b2)
+		b2.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox1(b2)
+
+		b3 = Button nuevo de Gtk
+		ajustar b3 con imagen img3
+		añadir a lista_botones(b3)
+		b3.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox1(b3)
+
+		b4 = Button nuevo de Gtk
+		ajustar b4 con imagen img0
+		añadir a lista_botones(b4)
+		b4.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox2(b4)
+
+		b5 = Button nuevo de Gtk
+		ajustar b5 con imagen img5
+		añadir a lista_botones(b5)
+		b5.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox2(b5)
+
+		b6 = Button nuevo de Gtk
+		ajustar b6 con imagen img6
+		añadir a lista_botones(b6)
+		b6.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox2(b6)
+
+		b7 = Button nuevo de Gtk
+		ajustar b7 con imagen img0
+		añadir a lista_botones(b7)
+		b7.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox2(b7)
+
+		b8 = Button nuevo de Gtk
+		ajustar b8 con imagen img8
+		añadir a lista_botones(b8)
+		b8.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox3(b8)
+
+		b9 = Button nuevo de Gtk
+		ajustar b9 con imagen img9
+		añadir a lista_botones(b9)
+		b9.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox3(b9)
+
+		b10 = Button nuevo de Gtk
+		ajustar b10 con imagen img10
+		añadir a lista_botones(b10)
+		b10.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox3(b10)
+
+		b11 = Button nuevo de Gtk
+		ajustar b11 con imagen img11
+		añadir a lista_botones(b11)
+		b11.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox3(b11)
+
+		b12 = Button nuevo de Gtk
+		ajustar b12 con imagen img12
+		añadir a lista_botones(b12)
+		b12.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox4(b12)
+
+		b13 = Button nuevo de Gtk
+		ajustar b13 con imagen img13
+		añadir a lista_botones(b13)
+		b13.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox4(b13)
+
+		b14 = Button nuevo de Gtk
+		ajustar b14 con imagen img14
+		añadir a lista_botones(b14)
+		b14.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox4(b0)
+
+		b15 = Button nuevo de Gtk
+		ajustar b15 con imagen img15
+		añadir a lista_botones(b15)
+		b15.click(on_button_clicked, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		
+		añadir a hbox4(b15)
+
+	funcion on_button_clicked(boton, lista_botones, lista_pares, lista_respuesta, lista_pos, label_gana)
+		si la cantidad de lista_respuesta < 2 entonces
+			pos_boton = lista_botones.indice(boton)
+			añadir a lista_pos(pos_boton)
+
+			añadir a lista_respuesta(lista_pares[pos_boton]
+			
+			img_boton = boton.imagen()
+			img_boton.ajustar_desde_archivo(lista_pares[pos_boton])
+			boton.ajustar_sensitividad(falso)
+
+			si cantidad de lista_respuesta == 2 entonces
+				this.intentos = this.intentos + 1
+				si lista_respuesta[0] == lista_respuesta[1] entonces
+					this.respcorrecta = this.repcorrecta + 1
+					lista_respuesta.limpiar()
+					lista_pos.limpiar()
+				sino entonces
+					this.intentosfallidos = this.intentosfallidos + 1
+					Glib.añadir_temporizador(this.timeout, oculta_imagen, lista_botones, lista_pos, lista_respuesta)
+
+			si this.repcorrecta == 8 entonces
+				txt_intentosfall = "Su número total de intentos fallidos fue: " + cadena(self.intentosfallidos) + "."
+				txt_intentos = "Su número total de intentos fue: " + cadena(this.intentos) + "."
+				label_gana.ajustar_texto("¡Felicitaciones, ha encontrado todos los pares!" + "\n" + txt_intentosfall + "\n" + txt_intentos + "\n)
+
+	funcion ocultaimagen(lista_botones, lista_pos, lista_respuesta)
+
+		imgboton1 = lista_botones[lista_pos[0]].ajustar_imagen()
+		imgboton1.ajustar_desde_archivo(‘img/default.png’)
+		lista_botones[lista_pos[0]].ajustar_sensitivo(verdadero)
+
+		imgboton2 = lista_botones[lista_pos[1]].ajustar_imagen()
+		imgboton2.ajustar_desde_archivo(‘img/default.png’)
+		lista_botones[lista_pos[1]].ajustar_sensitivo(verdadero)
+		
+		lista_respuesta.limpiar()
+		lista_pos.limpiar()
+		retornar Falso
+
+win = Ventana()
+win.conectar(‘destruir’, Gtk.main_quit)
+Gtk.main()
+
+Fin
+
+Paso 3: Pruebas de escritorio
+
+Ver documento "ProyectoFDPI - LealPinedaRiascos.pdf" adjunto.
+
+Paso 4: Código Python
 '''
 
-'''
-Analisis del problema:
-
-    Descripción Funcionalidad: Estamos haciendo una interfaz grafica donde
-    se hace un juego de parejas donde se tienen que clickear ambas imagenes para
-    completarlas todas
-'''
-
+# Inicio
 
 import gi
 import random
@@ -41,11 +281,6 @@ class ventana(Gtk.Window):
         # Caja Vertical
         vbox = Gtk.VBox(spacing=2, homogeneous = True)
         self.add(vbox)
-
-
-        lbl_presentacion = Gtk.Label()
-        lbl_presentacion.set_text('Emanuel Leal Arce\n Sebastian Riascos \n Gian Manuel Pineda')
-        vbox.pack_start(lbl_presentacion, True, True, 0)
 
         # Hileras de Cajas Horizontales Agregadas
         hbox1 = Gtk.Box(spacing=2, homogeneous = True)
@@ -101,10 +336,6 @@ class ventana(Gtk.Window):
 
         label_gana = Gtk.Label.new("")
         vbox.pack_start(label_gana, True, True, 0)
-
-        # Cabecero
-
-        
 
         # Botones agregados en grupos de 4 a una caja horizontal
 
@@ -265,3 +496,5 @@ win = ventana()
 win.connect("destroy", Gtk.main_quit)
 win.show_all()
 Gtk.main()
+
+# Fin
